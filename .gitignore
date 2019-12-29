@@ -1,1 +1,4 @@
 __pycache__/
+gui/__pycache__/
+gui/api/__pycache__/
+gui/res/__pycache__/
