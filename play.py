@@ -4,10 +4,10 @@ import os
 sys.path.append('gui/api')
 sys.path.append('gui/res')
 
-from maze import Maze
-from utils import draw_maze
-from window import Window
 from colors import color_list
+from window import Window
+from utils import draw_maze
+from maze import Maze
 
 
 def play(dim=20):
@@ -19,34 +19,33 @@ def play(dim=20):
     maze_offset_x = (partition - cell_size * dim) // 2
     maze_offset_y = (display_window_height - cell_size * dim) // 2
     border_width = int(20 / dim + 1.7)
-    
-    display_window = Window(display_window_width, display_window_height, 
-            caption='Maze')
-    
+
+    display_window = Window(display_window_width, display_window_height,
+                            caption='Maze')
+
     maze = Maze(dim)
     maze.build()
 
-    draw_maze(display_window, maze, maze_offset_x,maze_offset_y, cell_size, border_width, precision=False if dim > 35 else True)
+    draw_maze(display_window, maze, maze_offset_x, maze_offset_y,
+              cell_size, border_width, precision=False if dim > 35 else True)
 
-    solution_rect = display_window.draw_textbox((partition + display_window_width) / 2.08
-        , display_window_height / 2 - 30, 'See solution', color=color_list['dark_gray']  
-            , size=52, action=None, fontstyle='rasa', underline=True)
+    solution_rect = display_window.draw_textbox((partition + display_window_width) / 2.08, display_window_height /
+                                                2 - 30, 'See solution', color=color_list['dark_gray'], size=52, action=None, fontstyle='rasa', underline=True)
 
-    def save(window, x, y, width, height, filepath): window.capture_rect(x, y, 
-        width, height, filepath)
-    arguments = {'window': display_window, 'x': 0, 'y': 0, 'width': partition, 
-        'height': display_window_height, 'filepath': (os.getcwd() + '/export/maze.jpeg')}
+    def save(window, x, y, width, height, filepath): window.capture_rect(x, y,
+                                                                         width, height, filepath)
+    arguments = {'window': display_window, 'x': 0, 'y': 0, 'width': partition,
+                 'height': display_window_height, 'filepath': (os.path.join(os.getcwd(), 'export', 'maze.jpeg'))}
     action = {'callable': save, 'arguments': arguments}
-    save_rect = display_window.draw_textbox((partition + display_window_width) / 2.08
-        , display_window_height / 2 + 30, 'Export Maze', color=color_list['dark_gray']
-            , size=32, action=action, fontstyle='rasa', underline=True, italic=False)
+    save_rect = display_window.draw_textbox((partition + display_window_width) / 2.08, display_window_height / 2 + 30,
+                                            'Export Maze', color=color_list['dark_gray'], size=32, action=action, fontstyle='rasa', underline=True, italic=False)
 
     display_window.show()
 
 
 def main():
     if len(sys.argv) == 1:
-        play(50)
+        play(40)
     else:
         DIM = int(sys.argv[1][1:])
         if DIM > 50 or DIM < 1:
