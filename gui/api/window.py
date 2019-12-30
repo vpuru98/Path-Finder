@@ -22,6 +22,12 @@ class Window():
         return (x, y, width, height)
 
 
+    def capture_rect(self, x, y, width, height, filepath):
+        rect = pygame.Rect(x, y, width, height)
+        sub_surf = self.surface.subsurface(rect)
+        pygame.image.save(sub_surf, filepath)
+
+
     def draw_textbox(self, x, y, text, color, size=25, action=None, 
                     fontstyle=pygame.font.get_default_font(), underline=False, 
                             bold=False, italic=False):
