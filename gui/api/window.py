@@ -1,10 +1,9 @@
 import sys
-sys.path.append('..')
+sys.path.append('../res')
 
 import pygame
 from click import ClickHandler
-from res.colors import color_list
-
+from colors import color_list
 
 class Window():
 
@@ -23,14 +22,14 @@ class Window():
         return (x, y, width, height)
 
 
-    def draw_textbox(self, x, y, text, color, size=30, action=None, 
+    def draw_textbox(self, x, y, text, color, size=25, action=None, 
                     fontstyle=pygame.font.get_default_font(), underline=False, 
                             bold=False, italic=False):
-        text_builder = pygame.font.Font(fontstyle, size)
+        text_builder = pygame.font.SysFont(fontstyle, size)
         text_builder.set_underline(underline)
         text_builder.set_italic(italic)
         text_builder.set_bold(bold)
-        text_builder.set_underline(True)
+        text_builder.set_underline(underline)
         text_surface = text_builder.render(text, True, color)
         text_rect = text_surface.get_rect()
         text_rect.center = (x, y)
