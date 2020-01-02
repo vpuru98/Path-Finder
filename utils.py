@@ -1,7 +1,10 @@
 
+
 ''' Utility functions for rendering maze '''
 
 from gui.res.colors import color_list
+import threading
+import time
 
 
 def draw_maze(window, maze, maze_position_x, maze_position_y, cell_size,
@@ -73,3 +76,19 @@ def mark_cell(window, cell_x, cell_y, cell_size, border_width, color=color_list[
     mark_dim = int(cell_size * mark_size_factor)
     window.draw_rect(cell_x + (cell_size - mark_dim) // 2, cell_y + (cell_size -
                                                                      mark_dim) // 2, mark_dim, mark_dim, color)
+
+
+def get_solver_thread(window, solver, maze, maze_position_x, maze_position_y, cell_size, border_width, fps=30):
+
+    def thread_func(window, trace, maze_offset_x, maze_offset_y, cell_size, border_width, fps):
+        while len(trace):
+            cell_y, cell_x = trace.pop()
+            mark_cell(window, maze_offset_x + cell_x * cell_size, maze_offset_y + cell_y * cell_size, cell_size, border_width)
+            time.sleep(1 / fps)
+
+    solver.solve()
+    trace = solver.get_solution()
+    solver_thread = threading.Thread(target=thread_func, args=(window, trace, maze_position_x, maze_position_y, cell_size, border_width, fps))
+    solver_thread.daemon = True
+
+    return solver_thread

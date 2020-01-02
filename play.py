@@ -7,6 +7,8 @@ sys.path.append('gui/res')
 from colors import color_list
 from window import Window
 from utils import draw_maze
+from utils import get_solver_thread
+from solveDFS import SolverDFS
 from maze import Maze
 
 
@@ -29,13 +31,22 @@ def play(dim=20):
     draw_maze(display_window, maze, maze_offset_x, maze_offset_y,
               cell_size, border_width, precision=False if dim > 35 else True)
 
-    solution_rect = display_window.draw_textbox((partition + display_window_width) / 2.08, display_window_height /
-                                                2 - 30, 'See solution', color=color_list['dark_gray'], size=52, action=None, fontstyle='rasa', underline=True)
 
-    def save(window, x, y, width, height, filepath): window.capture_rect(x, y,
-                                                                         width, height, filepath)
+    solver = SolverDFS(maze)
+    solver_thread = get_solver_thread(display_window, solver, maze, maze_offset_x, maze_offset_y, cell_size, border_width, fps=15)
+
+    arguments = {'solver_thread': solver_thread}
+    def solve(solver_thread):
+        solver_thread.start()
+
+    action = {'callable': solve, 'arguments': arguments}
+    solution_rect = display_window.draw_textbox((partition + display_window_width) / 2.08, display_window_height / 2 - 30, 'See solution', color=color_list['dark_gray'], size=52, action=action, fontstyle='rasa', underline=True)
+
     arguments = {'window': display_window, 'x': 0, 'y': 0, 'width': partition,
                  'height': display_window_height, 'filepath': (os.path.join(os.getcwd(), 'export', 'maze.jpeg'))}
+    def save(window, x, y, width, height, filepath): 
+        window.capture_rect(x, y, width, height, filepath)
+
     action = {'callable': save, 'arguments': arguments}
     save_rect = display_window.draw_textbox((partition + display_window_width) / 2.08, display_window_height / 2 + 30,
                                             'Export Maze', color=color_list['dark_gray'], size=32, action=action, fontstyle='rasa', underline=True, italic=False)
