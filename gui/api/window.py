@@ -2,7 +2,7 @@ import sys
 sys.path.append('../res')
 
 from colors import color_list
-from click import ClickHandler
+from clicks import ClickHandler
 import pygame
 
 
