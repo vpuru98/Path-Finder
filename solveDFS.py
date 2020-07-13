@@ -53,4 +53,5 @@ if __name__ == '__main__':
     maze.build()
     solver = SolverDFS(maze)
     solver.solve()
+    print(maze)
     print(solver.get_solution())

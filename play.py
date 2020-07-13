@@ -9,6 +9,7 @@ from window import Window
 from utils import draw_maze
 from utils import get_solver_thread
 from solveDFS import SolverDFS
+from solveDijkstra import SolverDijkstra
 from maze import Maze
 
 
@@ -32,7 +33,7 @@ def play(dim=20):
               cell_size, border_width, precision=False if dim > 35 else True)
 
 
-    solver = SolverDFS(maze)
+    solver = SolverDijkstra(maze)
     solver_thread = get_solver_thread(display_window, solver, maze, maze_offset_x, maze_offset_y, cell_size, border_width, fps=15)
 
     arguments = {'solver_thread': solver_thread}
