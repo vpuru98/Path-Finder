@@ -1,15 +1,15 @@
 # Path-Finder
 
-> A simple maze visualizer/solver in python built using [pygame](https://www.pygame.org/)
+> Maze generation and path finding using graph search and divide and conquer algorithms.
 
 ![](assets/example.jpg)
 
-### How to Play
+### How to Run
 First, install pygame with the command 
     
     pip3 install pygame
 
-To play, simply run 
+To path-find, simply run 
   
     python3 play.py -n
     
