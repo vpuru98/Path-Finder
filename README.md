@@ -1,8 +1,8 @@
 # Path-Finder
 
-> A simple maze game in python built using [pygame](https://www.pygame.org/)
+> A simple maze visualizer/solver in python built using [pygame](https://www.pygame.org/)
 
-![](export/maze.jpeg)
+![](assets/example.jpg)
 
 ### How to Play
 First, install pygame with the command 
