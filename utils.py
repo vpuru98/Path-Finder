@@ -85,6 +85,8 @@ def get_solver_thread(window, solver, maze, maze_position_x, maze_position_y, ce
             cell_y, cell_x = trace.pop()
             mark_cell(window, maze_offset_x + cell_x * cell_size, maze_offset_y + cell_y * cell_size, cell_size, border_width)
             time.sleep(1 / fps)
+        while True:
+        	pass
 
     solver.solve()
     trace = solver.get_solution()

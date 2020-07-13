@@ -38,7 +38,8 @@ def play(dim=20):
 
     arguments = {'solver_thread': solver_thread}
     def solve(solver_thread):
-        solver_thread.start()
+        if not solver_thread.is_alive():
+            solver_thread.start()
 
     action = {'callable': solve, 'arguments': arguments}
     solution_rect = display_window.draw_textbox((partition + display_window_width) / 2.08, display_window_height / 2 - 30, 'See solution', color=color_list['dark_gray'], size=52, action=action, fontstyle='rasa', underline=True)
