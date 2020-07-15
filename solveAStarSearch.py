@@ -21,22 +21,25 @@ class SolverAStarSearch(Solver):
             if len(pq) > 0:
                 y, x, dist, sc = pq.pop()
                 visited[(y, x)] = True
-                if x + 1 < self.maze_dim and (y, x + 1) not in visited and not self.maze_matrix[y][x + 1][1] and distances[(y, x + 1)] > dist + 1:
-                    distances[(y, x + 1)] = dist + 1
-                    parents[(y, x + 1)] = (y, x)
-                    pq.push((y, x + 1, dist + 1, dist + 1 + 2 * (self.maze_dim - 1) - y - (x + 1)))
-                if y + 1 < self.maze_dim and (y + 1, x) not in visited and not self.maze_matrix[y + 1][x][0] and distances[(y + 1, x)] > dist + 1:
-                    distances[(y + 1, x)] = dist + 1
-                    parents[(y + 1, x)] = (y, x)
-                    pq.push((y + 1, x, dist + 1, dist + 1 + 2 * (self.maze_dim - 1) - (y + 1) - x))
-                if x > 0 and (y, x - 1) not in visited and not self.maze_matrix[y][x][1] and distances[(y, x - 1)] > dist + 1:
-                    distances[(y, x - 1)] = dist + 1
-                    parents[(y, x - 1)] = (y, x)
-                    pq.push((y, x - 1, dist + 1, dist + 1 + 2 * (self.maze_dim - 1) - y - (x - 1)))
-                if y > 0 and (y - 1, x) not in visited and not self.maze_matrix[y][x][0] and distances[(y - 1, x)] > dist + 1:
-                    distances[(y - 1, x)] = dist + 1
-                    parents[(y - 1, x)] = (y, x)
-                    pq.push((y - 1, x, dist + 1, dist + 1 + 2 * (self.maze_dim - 1) - (y - 1) - x))
+                if y == self.maze_dim - 1 and x == self.maze_dim - 1:
+                    break
+                else:
+                    if x + 1 < self.maze_dim and (y, x + 1) not in visited and not self.maze_matrix[y][x + 1][1] and distances[(y, x + 1)] > dist + 1:
+                        distances[(y, x + 1)] = dist + 1
+                        parents[(y, x + 1)] = (y, x)
+                        pq.push((y, x + 1, dist + 1, dist + 1 + 2 * (self.maze_dim - 1) - y - (x + 1)))
+                    if y + 1 < self.maze_dim and (y + 1, x) not in visited and not self.maze_matrix[y + 1][x][0] and distances[(y + 1, x)] > dist + 1:
+                        distances[(y + 1, x)] = dist + 1
+                        parents[(y + 1, x)] = (y, x)
+                        pq.push((y + 1, x, dist + 1, dist + 1 + 2 * (self.maze_dim - 1) - (y + 1) - x))
+                    if x > 0 and (y, x - 1) not in visited and not self.maze_matrix[y][x][1] and distances[(y, x - 1)] > dist + 1:
+                        distances[(y, x - 1)] = dist + 1
+                        parents[(y, x - 1)] = (y, x)
+                        pq.push((y, x - 1, dist + 1, dist + 1 + 2 * (self.maze_dim - 1) - y - (x - 1)))
+                    if y > 0 and (y - 1, x) not in visited and not self.maze_matrix[y][x][0] and distances[(y - 1, x)] > dist + 1:
+                        distances[(y - 1, x)] = dist + 1
+                        parents[(y - 1, x)] = (y, x)
+                        pq.push((y - 1, x, dist + 1, dist + 1 + 2 * (self.maze_dim - 1) - (y - 1) - x))
             else:
                 break
 
