@@ -4,7 +4,7 @@
 
 ![](assets/example.jpg)
 
-### How to Run
+## How to Run
 First, install pygame with the command 
     
     pip3 install pygame
